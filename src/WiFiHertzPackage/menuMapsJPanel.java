@@ -49,74 +49,58 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList = new javax.swing.JList();
-        yourMapsjLabel = new javax.swing.JLabel();
         manageYourMapsLabel = new javax.swing.JLabel();
         jButtonAddMap = new javax.swing.JButton();
         jButtonReturn = new javax.swing.JButton();
-
-        jList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList);
-
-        yourMapsjLabel.setText("Your Maps");
 
         manageYourMapsLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         manageYourMapsLabel.setText("Zarządzaj swoimi Mapami");
 
         jButtonAddMap.setText("Add map");
-        jButtonAddMap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonAddMap.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonAddMapActionPerformed(evt);
             }
         });
 
         jButtonReturn.setText("Back");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(manageYourMapsLabel)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(294, 294, 294))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonAddMap)
-                            .addComponent(yourMapsjLabel))
-                        .addGap(265, 265, 265))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonReturn)
-                .addGap(30, 30, 30))
+                        .addComponent(jButtonAddMap)
+                        .addGap(165, 165, 165)
+                        .addComponent(jButtonReturn))
+                    .addComponent(manageYourMapsLabel))
+                .addGap(0, 27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(manageYourMapsLabel)
-                .addGap(44, 44, 44)
-                .addComponent(yourMapsjLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(jButtonAddMap)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonReturn)
-                .addGap(13, 13, 13))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAddMap)
+                    .addComponent(jButtonReturn))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     public static ArrayList<String> listMap = new ArrayList<String>();
@@ -144,13 +128,16 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
        
         
     }//GEN-LAST:event_jButtonAddMapActionPerformed
+
+    private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReturnActionPerformed
+    {//GEN-HEADEREND:event_jButtonReturnActionPerformed
+        new WiFiHerzPackage.HelloJFrame().setVisible(true);
+    }//GEN-LAST:event_jButtonReturnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddMap;
     private javax.swing.JButton jButtonReturn;
-    private javax.swing.JList jList;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel manageYourMapsLabel;
-    private javax.swing.JLabel yourMapsjLabel;
     // End of variables declaration//GEN-END:variables
     private DefaultListModel listModel;
   
@@ -171,18 +158,7 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (e.getValueIsAdjusting() == false) {
-
-            if (jList.getSelectedIndex() == -1) {
-                //No selection, disable fire button.
-                jButtonAddMap.setEnabled(false);
-
-            } else {
-                //Selection, enable the fire button.
-                jButtonAddMap.setEnabled(true);
-            }
-
-        }
+    public void valueChanged(ListSelectionEvent lse) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
