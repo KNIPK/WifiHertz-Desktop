@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package WiFiHerzPackage;
+package WiFiHertzPackage;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,13 +30,16 @@ public class HelloJPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         infoJPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        try {
+        try
+        {
             logoJPanel1 = new WiFiHertzPackage.LogoJPanel();
-        } catch (java.io.IOException e1) {
+        } catch (java.io.IOException e1)
+        {
             e1.printStackTrace();
         }
         loginJPanel = new javax.swing.JPanel();
@@ -72,14 +75,18 @@ public class HelloJPanel extends javax.swing.JPanel {
         );
 
         jButtonLogin.setText("Login");
-        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonLoginActionPerformed(evt);
             }
         });
 
-        jTextFieldLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jTextFieldLogin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jTextFieldLoginActionPerformed(evt);
             }
         });

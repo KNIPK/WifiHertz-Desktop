@@ -131,7 +131,7 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
 
     private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReturnActionPerformed
     {//GEN-HEADEREND:event_jButtonReturnActionPerformed
-        new WiFiHerzPackage.HelloJFrame().setVisible(true);
+        new WiFiHertzPackage.HelloJFrame().setVisible(true);
     }//GEN-LAST:event_jButtonReturnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
