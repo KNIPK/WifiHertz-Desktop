@@ -107,7 +107,7 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
     private void jButtonAddMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMapActionPerformed
         // TODO add your handling code here:
         listModel = new DefaultListModel();
-      
+   
         //MapChoiserJFrame.choiserJPanel1 = new choiserJPanel();
         JFileChooser jfc = new JFileChooser();
         choiserJPanel preview = new choiserJPanel(jfc);
