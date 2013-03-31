@@ -104,7 +104,8 @@ public class TableModelClass extends AbstractTableModel
         return crsClass;
     }
     @Override
-    public void setValueAt(Object obj, int rowIndex, int columnIndex) {
+    public void setValueAt(Object obj, int rowIndex, int columnIndex) 
+    {
         try        
         {
             database.setValue(obj, getColumnClass(columnIndex), rowIndex, columnIndex);

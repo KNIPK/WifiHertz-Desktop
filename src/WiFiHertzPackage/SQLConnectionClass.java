@@ -13,7 +13,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 import java.util.prefs.Preferences;
 import javax.sql.rowset.CachedRowSet;
@@ -28,7 +30,7 @@ public class SQLConnectionClass
     CachedRowSet crs = null;
     
     BazaConn database = null;
-    
+    public static String sourcePath="";
     String url, user, passwd;  
     public SQLConnectionClass() throws SQLException, FileNotFoundException, IOException
     {
@@ -42,10 +44,30 @@ public class SQLConnectionClass
         crs.setUsername(user);
         crs.setPassword(passwd);
     }
+    static String url1 = "jdbc:mysql://127.0.0.1:3306/";
+    static String baza1 = "wifihertz";
+    static String login1 = "root";          // <---- podaj swój login
+    static String password1 = "";   // <---- podaj swoje hasło
+    public static String loadPath(String nazwa) throws SQLException
+    {
+       Connection conn = (Connection) DriverManager.getConnection(url1+baza1 , login1 , password1);
+       Statement st = conn.createStatement();
+  
+       ResultSet rs = st.executeQuery("SELECT * FROM wifihertz.images where img_name='"+nazwa+"'");
+       while(rs.next())
+       {
+          sourcePath = rs.getString("img_scr");
+          System.out.println(sourcePath);
+       }
+       return sourcePath;
+    }
+   
     public CachedRowSet getCachedRowSetImage() throws SQLException
     {
-        crs.setCommand("select a2.user_id, a1.img_name from wifihertz.images a1, wifihertz.users a2 where a2.user_id=a1.user_id_img");
+       
+        crs.setCommand("select a1.img_name from wifihertz.images a1, wifihertz.users a2 where a2.user_id=a1.user_id_img");
         crs.execute();
+       
         return crs;
     }
     public CachedRowSet getCachedRowSetUsers() throws SQLException

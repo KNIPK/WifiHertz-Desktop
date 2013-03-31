@@ -10,7 +10,10 @@ import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -105,7 +108,7 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
     }// </editor-fold>//GEN-END:initComponents
     public static ArrayList<String> listMap = new ArrayList<String>();
     private void jButtonAddMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMapActionPerformed
-        // TODO add your handling code here:
+       
         listModel = new DefaultListModel();
    
         //MapChoiserJFrame.choiserJPanel1 = new choiserJPanel();
