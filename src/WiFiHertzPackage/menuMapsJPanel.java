@@ -4,16 +4,22 @@
  */
 package WiFiHertzPackage;
 
+import static WiFiHertzPackage.TableJFrame.bMysql;
+import static WiFiHertzPackage.TableJFrame.model;
+import com.sun.rowset.CachedRowSetImpl;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sql.rowset.CachedRowSet;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -40,9 +46,14 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
      */
     public File file;
     public static int i = 0;
-
-    public menuMapsJPanel() {
+    public String filePathScrImage;
+    SQLConnectionClass bMySQL;
+    CachedRowSet crs;
+    public menuMapsJPanel() throws SQLException, FileNotFoundException, IOException {
+        bMySQL = new SQLConnectionClass();
+        crs = new CachedRowSetImpl();
         initComponents();
+        
     }
 
     /**
@@ -107,29 +118,49 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
         );
     }// </editor-fold>//GEN-END:initComponents
     public static ArrayList<String> listMap = new ArrayList<String>();
+    private String doSomethingWithStringPath(String str)
+    {
+        String tmp = str.replaceAll("\\\\", "\\\\\\\\");
+        return tmp;
+    }
     private void jButtonAddMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMapActionPerformed
+        try       
+        {
+            listModel = new DefaultListModel();
        
-        listModel = new DefaultListModel();
-   
-        //MapChoiserJFrame.choiserJPanel1 = new choiserJPanel();
-        JFileChooser jfc = new JFileChooser();
-        choiserJPanel preview = new choiserJPanel(jfc);
-        jfc.addPropertyChangeListener(preview);
-        jfc.setAccessory(preview);
-        jfc.showOpenDialog(null);
-        
-        file = jfc.getSelectedFile();
-        listMap.add(file.getName());
-        System.out.println(menuMapsJPanel.listMap.get(0));
-       // listJPanel1 = new listJPanel();
-        //listJPanel1.setVisible(true);
-        //JFrame frame = new JFrame("List Example");
-       // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       // frame.setContentPane(new listJPanel(a));
-       // frame.pack();
-        //frame.setVisible(true);
-       
-        
+            //MapChoiserJFrame.choiserJPanel1 = new choiserJPanel();
+            JFileChooser jfc = new JFileChooser();
+            choiserJPanel preview = new choiserJPanel(jfc);
+            jfc.addPropertyChangeListener(preview);
+            jfc.setAccessory(preview);
+            jfc.showOpenDialog(null);
+            
+            file = jfc.getSelectedFile();
+            filePathScrImage = file.getAbsolutePath();
+            System.out.println("Dodawanie do bazy po wybraniu zdjecia z dysku");
+            System.out.println("sciezka : "+ file.getAbsolutePath());
+            listMap.add(file.getName());
+            System.out.println(menuMapsJPanel.listMap.get(0));
+           // filePathScrImage.replaceAll("\\\\", "\\\\\\\\");
+            filePathScrImage = doSomethingWithStringPath(filePathScrImage);
+            System.out.println("string " + filePathScrImage);
+            try        
+            {
+                SQLConnectionClass.insertImage(filePathScrImage,file.getName(),1);
+                
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(menuMapsJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            crs = bMySQL.getCachedRowSetImage();
+            TableJFrame.model = new TableModelClass(crs, bMySQL);
+            TableJFrame.jTable1.setModel(model); 
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(menuMapsJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonAddMapActionPerformed
 
     private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReturnActionPerformed

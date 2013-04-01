@@ -30,7 +30,8 @@ public class SQLConnectionClass
     CachedRowSet crs = null;
     
     BazaConn database = null;
-    public static String sourcePath="";
+    public static String sourcePath;
+    public static String userData;
     String url, user, passwd;  
     public SQLConnectionClass() throws SQLException, FileNotFoundException, IOException
     {
@@ -61,7 +62,33 @@ public class SQLConnectionClass
        }
        return sourcePath;
     }
-   
+    public static String getUsersData(String log, String pass) throws SQLException
+    {
+       Connection conn = (Connection) DriverManager.getConnection(url1+baza1 , login1 , password1);
+       Statement st = conn.createStatement();
+  
+       ResultSet rs = st.executeQuery("SELECT * FROM wifihertz.users where lower(login)='"+log.toLowerCase()+"' and lower(passwd) = '"
+               + pass.toLowerCase() + "'");
+       while(rs.next())
+       {
+          userData = rs.getString("user_id");
+          System.out.println(userData);
+       }
+       return userData;
+    }
+    public static void insertImage(String name, String pathName, int user_id) throws SQLException
+    {
+        String tableName = "IMAGES";
+        int image_id = 0;
+        Connection conn = (Connection) DriverManager.getConnection(url1 + baza1, login1, password1);
+        Statement st = conn.createStatement();
+        st.executeUpdate("insert into wifihertz.images values(0,"+ user_id+", '" + pathName + "', '"+ name + "');");
+        conn.setAutoCommit(false);
+        conn.commit();
+        conn.close(); 
+        
+        //TableJFrame.jTable1.repaint();
+    }
     public CachedRowSet getCachedRowSetImage() throws SQLException
     {
        
@@ -93,19 +120,6 @@ public class SQLConnectionClass
             crs.updateString(columnIndex + 1, (String) obj);
         }
         crs.updateRow();
-        conn.setAutoCommit(false);
-        crs.acceptChanges();
-        conn.close();
-    }
-    public void insertMapToImages(String[] row, int user_id) throws FileNotFoundException, FileNotFoundException, IOException, SQLException
-    { 
-        crs.moveToInsertRow();
-        crs.updateInt("img_id", 0);
-        crs.updateInt("user_id_img",user_id);
-        crs.updateString("img_name", row[0]);
-        crs.insertRow();
-        crs.moveToCurrentRow();
-        conn = database.getConnection();
         conn.setAutoCommit(false);
         crs.acceptChanges();
         conn.close();

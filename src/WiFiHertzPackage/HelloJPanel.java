@@ -6,9 +6,14 @@ package WiFiHertzPackage;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +24,8 @@ public class HelloJPanel extends javax.swing.JPanel {
     /**
      * Creates new form HelloJPanel
      */
+    public static String login;
+    public static String password;
     public HelloJPanel() {
         initComponents();
     }
@@ -163,7 +170,38 @@ public class HelloJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldLoginActionPerformed
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        // TODO add your handling code here:
+        if(jTextFieldLogin.getText().equals("") || jTextFieldpasswd.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(infoJPanel, "enter login and password","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            login = jTextFieldLogin.getText(); password = jTextFieldpasswd.getText();
+            try
+            {
+                if(SQLConnectionClass.getUsersData(login, password) != null)
+                {
+                    System.out.println("login " + login + " passwd : " + password);
+                    new WiFiHertzPackage.TableJFrame().setVisible(true);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(infoJPanel, "you are not registered","Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (FileNotFoundException ex)
+            {
+                Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (IOException ex)
+            {
+                Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButtonLoginActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

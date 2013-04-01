@@ -51,7 +51,7 @@ public class TableJFrame extends javax.swing.JFrame
         initComponents();
         this.setPreferredSize(new Dimension(jTable1.getWidth(), jTable1.getHeight()));
         getDataFromDatabase();
-       
+        
     }
    
     
@@ -67,7 +67,19 @@ public class TableJFrame extends javax.swing.JFrame
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        menuMapsJPanel2 = new WiFiHertzPackage.menuMapsJPanel();
+        try
+        {
+            menuMapsJPanel2 = new WiFiHertzPackage.menuMapsJPanel();
+        } catch (java.sql.SQLException e1)
+        {
+            e1.printStackTrace();
+        } catch (java.io.FileNotFoundException e2)
+        {
+            e2.printStackTrace();
+        } catch (java.io.IOException e3)
+        {
+            e3.printStackTrace();
+        }
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,7 +152,7 @@ public class TableJFrame extends javax.swing.JFrame
         
         
     }//GEN-LAST:event_menuMapsJPanel2MouseClicked
-
+    
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseClicked
     {//GEN-HEADEREND:event_jTable1MouseClicked
         String nnn;
@@ -171,6 +183,7 @@ public class TableJFrame extends javax.swing.JFrame
             images = true;
             
             crs = bMysql.getCachedRowSetImage();        // TODO add your handling code here:
+           
         }
         catch (SQLException ex)
         {
@@ -247,7 +260,7 @@ public class TableJFrame extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable1;
     private WiFiHertzPackage.menuMapsJPanel menuMapsJPanel2;
     // End of variables declaration//GEN-END:variables
 }
