@@ -4,6 +4,7 @@
  */
 package WiFiHertzPackage;
 
+import static WiFiHertzPackage.SQLConnectionClass.loadPath;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class TableJFrame extends javax.swing.JFrame
     ArrayList<TableColumn> removedColumns;
     /**model tabeli*/
     static TableModelClass model;
-   
+    public static String nameMap;
     TableModelClass modelImages;
     TableModelClass modelUsers;
     static SQLConnectionClass bMysql;
@@ -43,14 +44,17 @@ public class TableJFrame extends javax.swing.JFrame
      */
     public TableJFrame() throws SQLException, FileNotFoundException, IOException
     {
+         
         bMysql = new SQLConnectionClass();
         crs = bMysql.getCachedRowSetImage();
         model = new TableModelClass(crs, bMysql);
         initComponents();
         this.setPreferredSize(new Dimension(jTable1.getWidth(), jTable1.getHeight()));
         getDataFromDatabase();
+        
     }
-
+   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,7 +67,19 @@ public class TableJFrame extends javax.swing.JFrame
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        menuMapsJPanel2 = new WiFiHertzPackage.menuMapsJPanel();
+        try
+        {
+            menuMapsJPanel2 = new WiFiHertzPackage.menuMapsJPanel();
+        } catch (java.sql.SQLException e1)
+        {
+            e1.printStackTrace();
+        } catch (java.io.FileNotFoundException e2)
+        {
+            e2.printStackTrace();
+        } catch (java.io.IOException e3)
+        {
+            e3.printStackTrace();
+        }
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -81,7 +97,22 @@ public class TableJFrame extends javax.swing.JFrame
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+
+        menuMapsJPanel2.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                menuMapsJPanel2MouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Your Maps");
 
@@ -115,15 +146,44 @@ public class TableJFrame extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuMapsJPanel2MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_menuMapsJPanel2MouseClicked
+    {//GEN-HEADEREND:event_menuMapsJPanel2MouseClicked
+        
+        
+    }//GEN-LAST:event_menuMapsJPanel2MouseClicked
     
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseClicked
+    {//GEN-HEADEREND:event_jTable1MouseClicked
+        String nnn;
+        int row = jTable1.rowAtPoint(evt.getPoint());
+        int col = jTable1.columnAtPoint(evt.getPoint());
+        int colMap = jTable1.getSelectedRow();
+        nameMap = (String) jTable1.getModel().getValueAt(row, col);
+        
+        System.out.println(nameMap);
+        try
+        {
+            nnn=loadPath(nameMap);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(TableJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+    public void mouseClicked(java.awt.event.MouseEvent event)
+    {
+        
+    }
     private void getDataFromDatabase()
     {
         try
         {
             users = false;
             images = true;
-            /*tworzymy sobie nasz zbior buforowany*/
+            
             crs = bMysql.getCachedRowSetImage();        // TODO add your handling code here:
+           
         }
         catch (SQLException ex)
         {
@@ -135,6 +195,7 @@ public class TableJFrame extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[])
     {
         /* Set the Nimbus look and feel */
@@ -199,7 +260,7 @@ public class TableJFrame extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable1;
     private WiFiHertzPackage.menuMapsJPanel menuMapsJPanel2;
     // End of variables declaration//GEN-END:variables
 }

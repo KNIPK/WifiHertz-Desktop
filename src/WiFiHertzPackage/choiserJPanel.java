@@ -25,6 +25,7 @@ public class choiserJPanel extends javax.swing.JPanel implements PropertyChangeL
 
     private JFileChooser jfc;
     private Image img;
+    
 
     /**
      * Creates new form choiserJPanel
@@ -105,11 +106,16 @@ public class choiserJPanel extends javax.swing.JPanel implements PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        try {
+        try 
+        {
             System.out.println("updating");
+           
             File file = jfc.getSelectedFile();
+        //    System.out.println("plik: "+ jfc.getSelectedFile());
             updateImage(file);
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) 
+        {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
@@ -137,7 +143,9 @@ public class choiserJPanel extends javax.swing.JPanel implements PropertyChangeL
             g.drawString(dim, 31, 196);
             g.setColor(Color.white);
             g.drawString(dim, 30, 195);
-        } else {
+        } 
+        else 
+        {
             // print a message
             g.setColor(Color.black);
             g.drawString("Not an image", 30, 100);
