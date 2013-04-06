@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package WiFiHertzPackage;
+package desktop.wifihertz;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,22 +64,23 @@ public class HelloJPanel extends javax.swing.JPanel {
         infoJPanelLayout.setHorizontalGroup(
             infoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(infoJPanelLayout.createSequentialGroup()
-                .addContainerGap(255, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(infoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoJPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(220, 220, 220))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoJPanelLayout.createSequentialGroup()
-                        .addComponent(logoJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(253, 253, 253))))
+                        .addComponent(logoJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(267, 267, 267))))
         );
         infoJPanelLayout.setVerticalGroup(
             infoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(infoJPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(logoJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(logoJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
         );
 
         jButtonLogin.setText("Login");
@@ -107,7 +109,7 @@ public class HelloJPanel extends javax.swing.JPanel {
         loginJPanelLayout.setHorizontalGroup(
             loginJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginJPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 246, Short.MAX_VALUE)
                 .addGroup(loginJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginJPanelLayout.createSequentialGroup()
                         .addComponent(jButtonLogin)
@@ -157,11 +159,11 @@ public class HelloJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(infoJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(infoJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loginJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -176,28 +178,40 @@ public class HelloJPanel extends javax.swing.JPanel {
         }
         else
         {
-            login = jTextFieldLogin.getText(); password = jTextFieldpasswd.getText();
             try
             {
-                if(SQLConnectionClass.getUsersData(login, password) != null)
+                SQLite obj = new SQLite();
+                login = jTextFieldLogin.getText(); password = jTextFieldpasswd.getText();
+                try
                 {
-                    System.out.println("login " + login + " passwd : " + password);
-                    new WiFiHertzPackage.TableJFrame().setVisible(true);
+                    if(obj.getUsersData(login, password) != null)
+                    {
+                        System.out.println("login " + login + " passwd : " + password);
+                        new desktop.wifihertz.TableJFrame().setVisible(true);
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(infoJPanel, "you are not registered","Error",JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                else
+                catch (SQLException ex)
                 {
-                    JOptionPane.showMessageDialog(infoJPanel, "you are not registered","Error",JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                catch (FileNotFoundException ex)
+                {
+                    Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch (IOException ex)
+                {
+                    Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            catch (ClassNotFoundException ex)
+            {
+                Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             catch (SQLException ex)
-            {
-                Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            catch (FileNotFoundException ex)
-            {
-                Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            catch (IOException ex)
             {
                 Logger.getLogger(HelloJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }

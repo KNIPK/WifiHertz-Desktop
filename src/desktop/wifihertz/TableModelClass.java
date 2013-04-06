@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package WiFiHertzPackage;
+package desktop.wifihertz;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,8 +18,9 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TableModelClass extends AbstractTableModel 
 {
-    CachedRowSet crs; SQLConnectionClass database;
-    public TableModelClass(CachedRowSet crsA, SQLConnectionClass databaseA)
+    CachedRowSet crs; 
+    SQLite database;
+    public TableModelClass(CachedRowSet crsA, SQLite databaseA)
     {
         crs = crsA; database = databaseA;
     }

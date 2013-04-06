@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package WiFiHertzPackage;
+package desktop.wifihertz;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,39 +30,6 @@ public class choiserJPanel extends javax.swing.JPanel implements PropertyChangeL
     /**
      * Creates new form choiserJPanel
      */
-    public static void main(String[] args) 
-    {
-        JFileChooser jfc = new JFileChooser();
-        LokalizujNapisyPL(jfc);
-        choiserJPanel preview = new choiserJPanel(jfc);
-        jfc.addPropertyChangeListener(preview);
-        jfc.setAccessory(preview);
-        jfc.showOpenDialog(null);
-    }
-    public static void LokalizujNapisyPL(javax.swing.JComponent komponent)
-    {
-                UIManager.put("FileChooser.openDialogTitleText", "Otwórz");
-                UIManager.put("FileChooser.lookInLabelText", "Szukaj w : ");
-                UIManager.put("FileChooser.openButtonText", "Otwórz");
-                UIManager.put("FileChooser.cancelButtonText", "Anuluj");
-                UIManager.put("FileChooser.fileNameLabelText", "Nazwa pliku : ");
-                UIManager.put("FileChooser.filesOfTypeLabelText", "Typ plików : ");
-                UIManager.put("FileChooser.openButtonToolTipText", "Otwórz wybrany plik");
-                UIManager.put("FileChooser.cancelButtonToolTipText","Anuluj");
-                UIManager.put("FileChooser.fileNameHeaderText","Nazwa pliku : ");
-                UIManager.put("FileChooser.upFolderToolTipText", "Poziom wyżej");
-                UIManager.put("FileChooser.homeFolderToolTipText","Pulpit");
-                UIManager.put("FileChooser.newFolderToolTipText","Twórz nowy folder");
-                UIManager.put("FileChooser.listViewButtonToolTipText","Lista");
-                UIManager.put("FileChooser.newFolderButtonText","Nowy folder");
-                UIManager.put("FileChooser.renameFileButtonText", "Zmień nazwę pliku");
-                UIManager.put("FileChooser.deleteFileButtonText", "Usuń plik");
-                UIManager.put("FileChooser.filterLabelText", "Typ pliku : ");
-                UIManager.put("FileChooser.detailsViewButtonToolTipText", "Szczegóły");
-                UIManager.put("FileChooser.fileSizeHeaderText","Rozmiar");
-                UIManager.put("FileChooser.fileDateHeaderText", "Zmodyfkowano");
-                SwingUtilities.updateComponentTreeUI(komponent);  
-    }
     public choiserJPanel(JFileChooser jfc) {
         this.jfc = jfc;
         Dimension sz = new Dimension(200, 200);

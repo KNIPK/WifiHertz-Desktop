@@ -2,10 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package WiFiHertzPackage;
+package desktop.wifihertz;
 
-import static WiFiHertzPackage.TableJFrame.bMysql;
-import static WiFiHertzPackage.TableJFrame.model;
+
 import com.sun.rowset.CachedRowSetImpl;
 import java.awt.Color;
 import java.awt.Component;
@@ -47,10 +46,10 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
     public File file;
     public static int i = 0;
     public String filePathScrImage;
-    SQLConnectionClass bMySQL;
+    SQLite bMySQL;
     CachedRowSet crs;
-    public menuMapsJPanel() throws SQLException, FileNotFoundException, IOException {
-        bMySQL = new SQLConnectionClass();
+    public menuMapsJPanel() throws SQLException, FileNotFoundException, IOException, ClassNotFoundException {
+        bMySQL = new SQLite();
         crs = new CachedRowSetImpl();
         initComponents();
         
@@ -126,6 +125,16 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
     private void jButtonAddMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMapActionPerformed
         try       
         {
+            
+            SQLite obj=null;
+            try
+            {
+                obj = new SQLite();
+            }
+            catch (ClassNotFoundException ex)
+            {
+                Logger.getLogger(menuMapsJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             listModel = new DefaultListModel();
        
             //MapChoiserJFrame.choiserJPanel1 = new choiserJPanel();
@@ -144,18 +153,17 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
            // filePathScrImage.replaceAll("\\\\", "\\\\\\\\");
             filePathScrImage = doSomethingWithStringPath(filePathScrImage);
             System.out.println("string " + filePathScrImage);
-            try        
+            obj.insertImage(file.getName(), filePathScrImage,1);
+            try
             {
-                SQLConnectionClass.insertImage(filePathScrImage,file.getName(),1);
-                
+                crs = bMySQL.getCachedRowSetImage();
             }
-            catch (SQLException ex)
+            catch (ClassNotFoundException ex)
             {
                 Logger.getLogger(menuMapsJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            crs = bMySQL.getCachedRowSetImage();
             TableJFrame.model = new TableModelClass(crs, bMySQL);
-            TableJFrame.jTable1.setModel(model); 
+            TableJFrame.jTable1.setModel(TableJFrame.model); 
         }
         catch (SQLException ex)
         {
@@ -165,7 +173,7 @@ public class menuMapsJPanel extends javax.swing.JPanel implements ListCellRender
 
     private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReturnActionPerformed
     {//GEN-HEADEREND:event_jButtonReturnActionPerformed
-        new WiFiHertzPackage.HelloJFrame().setVisible(true);
+        new HelloJFrame().setVisible(true);
     }//GEN-LAST:event_jButtonReturnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

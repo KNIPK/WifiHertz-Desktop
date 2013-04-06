@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package WiFiHertzPackage;
+package desktop.wifihertz;
 
-import static WiFiHertzPackage.SQLConnectionClass.loadPath;
+
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,8 +33,8 @@ public class TableJFrame extends javax.swing.JFrame
     public static String nameMap;
     TableModelClass modelImages;
     TableModelClass modelUsers;
-    static SQLConnectionClass bMysql;
-    SQLConnectionClass bMysqlA, bMysqlP;
+    static SQLite bMysql;
+    SQLite bMysqlA, bMysqlP;
     ArrayList<Integer> userList;
     ArrayList<Object> imageList;
     boolean users = true;
@@ -42,10 +42,10 @@ public class TableJFrame extends javax.swing.JFrame
     /**
      * Creates new form TableJFrame
      */
-    public TableJFrame() throws SQLException, FileNotFoundException, IOException
+    public TableJFrame() throws SQLException, FileNotFoundException, IOException, ClassNotFoundException
     {
          
-        bMysql = new SQLConnectionClass();
+        bMysql = new SQLite();
         crs = bMysql.getCachedRowSetImage();
         model = new TableModelClass(crs, bMysql);
         initComponents();
@@ -67,9 +67,10 @@ public class TableJFrame extends javax.swing.JFrame
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         try
         {
-            menuMapsJPanel2 = new WiFiHertzPackage.menuMapsJPanel();
+            menuMapsJPanel1 = new desktop.wifihertz.menuMapsJPanel();
         } catch (java.sql.SQLException e1)
         {
             e1.printStackTrace();
@@ -79,8 +80,10 @@ public class TableJFrame extends javax.swing.JFrame
         } catch (java.io.IOException e3)
         {
             e3.printStackTrace();
+        } catch (java.lang.ClassNotFoundException e4)
+        {
+            e4.printStackTrace();
         }
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,14 +109,6 @@ public class TableJFrame extends javax.swing.JFrame
         });
         jScrollPane1.setViewportView(jTable1);
 
-        menuMapsJPanel2.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                menuMapsJPanel2MouseClicked(evt);
-            }
-        });
-
         jLabel1.setText("Your Maps");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -122,25 +117,17 @@ public class TableJFrame extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(123, 123, 123)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(menuMapsJPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52))))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(menuMapsJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(menuMapsJPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menuMapsJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -155,16 +142,29 @@ public class TableJFrame extends javax.swing.JFrame
     
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseClicked
     {//GEN-HEADEREND:event_jTable1MouseClicked
-        String nnn;
+        String nnn="";
         int row = jTable1.rowAtPoint(evt.getPoint());
         int col = jTable1.columnAtPoint(evt.getPoint());
         int colMap = jTable1.getSelectedRow();
         nameMap = (String) jTable1.getModel().getValueAt(row, col);
+        SQLite obj = null;
+        try
+        {
+            obj = new SQLite();
+        }
+        catch (ClassNotFoundException ex)
+        {
+            Logger.getLogger(TableJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        catch (SQLException ex)
+        {
+            Logger.getLogger(TableJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(nameMap);
         try
         {
-            nnn=loadPath(nameMap);
+            nnn=obj.loadPath(nameMap);
         }
         catch (SQLException ex)
         {
@@ -181,8 +181,14 @@ public class TableJFrame extends javax.swing.JFrame
         {
             users = false;
             images = true;
-            
-            crs = bMysql.getCachedRowSetImage();        // TODO add your handling code here:
+            try
+            {
+                crs = bMysql.getCachedRowSetImage();        // TODO add your handling code here:
+            }
+            catch (ClassNotFoundException ex)
+            {
+                Logger.getLogger(TableJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
            
         }
         catch (SQLException ex)
@@ -236,7 +242,7 @@ public class TableJFrame extends javax.swing.JFrame
         java.awt.EventQueue.invokeLater(new Runnable()
         {
             public void run()
-            {
+            {   
                 try
                 {
                     new TableJFrame().setVisible(true);
@@ -253,7 +259,10 @@ public class TableJFrame extends javax.swing.JFrame
                 {
                     Logger.getLogger(TableJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               
+                catch (ClassNotFoundException ex)
+                {
+                    Logger.getLogger(TableJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -261,6 +270,6 @@ public class TableJFrame extends javax.swing.JFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTable1;
-    private WiFiHertzPackage.menuMapsJPanel menuMapsJPanel2;
+    private desktop.wifihertz.menuMapsJPanel menuMapsJPanel1;
     // End of variables declaration//GEN-END:variables
 }
