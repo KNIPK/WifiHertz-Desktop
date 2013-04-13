@@ -284,6 +284,6 @@ public class SQLConnection
     }
     private static String SqLite             = "org.sqlite.JDBC";
     private static String mySql              = "com.mysql.jdbc.Driver";
-    private static String localUrlDatabase   = "jdbc:sqlite:db\\wifihertzdatabase.sqlite";
+    private static String localUrlDatabase   = "jdbc:sqlite:database\\wifihertzdatabase.sqlite";
     private static String urlDatabase        = "jdbc:mysql://mysql3.hekko.net.pl/kalny_wifi?user=kalny_wifi&password=xI2oUCmk";
 }
