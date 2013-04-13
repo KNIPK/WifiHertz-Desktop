@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +47,7 @@ public class loginJPanel extends javax.swing.JPanel
         //jTable1.setLayout(new BoxLayo);
     }
 
-    public void refresh() throws ClassNotFoundException, SQLException
+    public void refresh() throws ClassNotFoundException, SQLException, MalformedURLException, IOException
     {
         if (MainJFrame.isLogged == true)
         {
@@ -145,13 +147,13 @@ public class loginJPanel extends javax.swing.JPanel
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public static String getUserName;
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseClicked
     {//GEN-HEADEREND:event_jTable1MouseClicked
         // TODO add your handling code here:
         int row = jTable1.rowAtPoint(evt.getPoint());
         int col = jTable1.columnAtPoint(evt.getPoint());
-        String getUserName = (String) jTable1.getModel().getValueAt(row, col);
+        getUserName = (String) jTable1.getModel().getValueAt(row, col);
         System.out.println("Wybrales usera " + getUserName);
         String toDisp = getUserName + " is logged!";
         MainJFrame.userLoginLabel.setText(toDisp);

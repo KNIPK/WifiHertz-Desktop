@@ -4,34 +4,77 @@
  */
 package desktop.wifihertz;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.sql.rowset.CachedRowSet;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Łukasz
  */
-
 public class ManageJPanel extends javax.swing.JPanel
 {
+
     TableModelClass model;
     TableModelClass modelUsers;
     CachedRowSet crs;
     private static String SqLite = "org.sqlite.JDBC";
+    public static String sourceImagePath ="";
     /**
      * Creates new form ManageJPanel
      */
     public ManageJPanel()
     {
-        initComponents();
+
+       
+//        sourceImagePath = (String) jComboBox1.getSelectedItem();
+//        System.out.println("plik" + sourceImagePath);
     }
+    public void refresh()
+    {
+        initComponents();
+        fillComboBox();
+    }
+    private Image image;
+    /*@Override
+     public void paint(Graphics x)
+     {
+     Graphics2D g = (Graphics2D) x;
+
+     super.paint(g);
+     try
+     {
+     image = ImageIO.read(new File("C:\\Users\\vanlu_000\\Documents\\NetBeansProjects\\JavaApplication6\\"));
+     }
+     catch (IOException ex)
+     {
+     Logger.getLogger(ManageJPanel.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     //plansza = imageTemp1.getImage();
+     g.drawImage(image, 0, 0 , this);
+       
+     }*/
+
+    public void showImage()
+    {
+    }
+
     public void getManageTab() throws ClassNotFoundException, SQLException
     {
-       // ArrayList<WifiData> list = new ArrayList<WifiData>(SQLConnection.inicializeWifiData());
+        // ArrayList<WifiData> list = new ArrayList<WifiData>(SQLConnection.inicializeWifiData());
         if (MainJFrame.isLogged == true && MainJFrame.isManaged == true)
         {
 //            if (MainJFrame.isInternetAccess == true)
@@ -42,7 +85,6 @@ public class ManageJPanel extends javax.swing.JPanel
 //            {
 //                JOptionPane.showMessageDialog(this, "Warning! Can not connect to internet ", "Warning", JOptionPane.WARNING_MESSAGE);
 //            }
-
         }
 
     }
@@ -57,39 +99,114 @@ public class ManageJPanel extends javax.swing.JPanel
     private void initComponents()
     {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox();
+        imageJPanel1 = new desktop.wifihertz.ImageJPanel();
+        jButtonConfirm = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
+        jComboBox1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String []
-            {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                jComboBox1ActionPerformed(evt);
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        });
+
+        javax.swing.GroupLayout imageJPanel1Layout = new javax.swing.GroupLayout(imageJPanel1);
+        imageJPanel1.setLayout(imageJPanel1Layout);
+        imageJPanel1Layout.setHorizontalGroup(
+            imageJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 622, Short.MAX_VALUE)
+        );
+        imageJPanel1Layout.setVerticalGroup(
+            imageJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 424, Short.MAX_VALUE)
+        );
+
+        jButtonConfirm.setText("Show");
+        jButtonConfirm.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonConfirmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imageJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButtonConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 202, Short.MAX_VALUE))
+                .addGap(80, 80, 80)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(imageJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private static ArrayList<String> listFiles()
+    {
+        String path = ".";
+        ArrayList<String> lista = new ArrayList<String>();
+        String files;
+        File folder = new File(path);
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i++)
+        {
+
+            if (listOfFiles[i].isFile())
+            {
+                files = listOfFiles[i].getName();
+                if (files.endsWith(".jpg") || files.endsWith(".JPG"))
+                {
+                    System.out.println(files);
+                    lista.add(files);
+                }
+            }
+        }
+
+        return lista;
+    }
+
+    private void fillComboBox()
+    {
+        for (String nameImage : listFiles())
+        {
+            jComboBox1.addItem(nameImage);
+        }
+    }    
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
+    {//GEN-HEADEREND:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        sourceImagePath = (String) jComboBox1.getSelectedItem();
+        System.out.println("plik w combo : " + sourceImagePath);
+        repaint();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButtonConfirmActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmActionPerformed
+    {//GEN-HEADEREND:event_jButtonConfirmActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Wybrales plan : " + jComboBox1.getSelectedItem());
+        JOptionPane.showMessageDialog(this, "You choose  " + jComboBox1.getSelectedItem() + " map", "INFORMATION MESSAGE!", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButtonConfirmActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private desktop.wifihertz.ImageJPanel imageJPanel1;
+    private javax.swing.JButton jButtonConfirm;
+    private javax.swing.JComboBox jComboBox1;
     // End of variables declaration//GEN-END:variables
 }

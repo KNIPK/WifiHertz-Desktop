@@ -6,7 +6,10 @@ package desktop.wifihertz;
 
 import com.sun.rowset.CachedRowSetImpl;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,10 +32,10 @@ public class SQLConnection
     private static void insertToLocalDataWifi(int imageId, int dataId, String wifiName, long dataTime, String wifiSsid, int wifiRange, int positionX, int positionY) throws SQLException, ClassNotFoundException
     {
         Class.forName(SqLite);
-         System.out.println("Ładuje do bazy");
-        String query = "insert into wifidata values(" + imageId + ", " + dataId + "," + dataTime + 
-                ",'" + wifiName +  "', '" + wifiSsid + "' , "+wifiRange +
-                "," + positionX + "," + positionY + ");";
+        System.out.println("Ładuje do bazy");
+        String query = "insert into wifidata values(" + imageId + ", " + dataId + "," + dataTime
+                + ",'" + wifiName + "', '" + wifiSsid + "' , " + wifiRange
+                + "," + positionX + "," + positionY + ");";
         int image_id = 0;
         Connection connection = DriverManager.getConnection(localUrlDatabase);
         Statement st = connection.createStatement();
@@ -41,6 +44,7 @@ public class SQLConnection
         connection.commit();
         connection.close();
     }
+
     private static void insertToLocalDatabaseUsers(int user_id, String user_login) throws SQLException, ClassNotFoundException
     {
         Class.forName(SqLite);
@@ -52,6 +56,21 @@ public class SQLConnection
         connection.setAutoCommit(false);
         connection.commit();
         connection.close();
+    }
+    public static Integer getAccessToYoursImage(String login) throws SQLException, ClassNotFoundException
+    {
+        Class.forName(SqLite);
+        Integer userId=-1;
+        String query = "SELECT user_id FROM users where lower(user_login) ='"+login+"';";
+        Connection connection1 = DriverManager.getConnection(localUrlDatabase);
+        Statement statement1 = connection1.createStatement();
+        ResultSet resultSet1 = statement1.executeQuery(query);
+        while (resultSet1.next())
+        {
+            userId = Integer.parseInt(resultSet1.getString("user_id"));
+        }
+        connection1.close();
+        return userId;
     }
     private static ArrayList<Integer> connectToLocalDataBase() throws ClassNotFoundException, SQLException
     {
@@ -117,7 +136,7 @@ public class SQLConnection
         }
         return true;
     }
-
+    public static int UserId = -1;
     public static void getRemoteDataBase(String user_login, String user_passwd) throws ClassNotFoundException, SQLException
     {
         Class.forName(mySql);
@@ -135,6 +154,7 @@ public class SQLConnection
             //getUsers = resultSet.getString("image_name");
             getName = resultSet.getString("userLogin");
             getUserId = Integer.parseInt(resultSet.getString("userId"));
+           
             System.out.println("user_id:"
                     + resultSet.getString("userId") + " user login : " + resultSet.getString("userLogin") + " user passwd : " + resultSet.getString("userPassword"));
         }
@@ -173,10 +193,73 @@ public class SQLConnection
         }
         connection.close();
     }
+    public static ArrayList<Integer> getLista()
+    {
+        return imgList;
+    }
+    
+    public static void downloadImages(int user_id) throws ClassNotFoundException, SQLException, MalformedURLException, IOException
+    {
+        long startTime = System.currentTimeMillis();
+        imgList= new ArrayList<Integer>();
+        Class.forName("com.mysql.jdbc.Driver");
+        String query = "SELECT * FROM images where userId = " + user_id+";";
+        Connection connection = DriverManager.getConnection(urlDatabase);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+        while (resultSet.next())
+        {
+            System.out.println(Integer.parseInt(resultSet.getString("imageId")) + " "
+                    + Integer.parseInt(resultSet.getString("userId")) + " "
+                    + resultSet.getString("imageTitle"));
+            imgList.add(Integer.parseInt(resultSet.getString("imageId")));
+        }
+        connection.close();
+        getLista();
+        copyToMyHard(imgList);
+//    
+//        System.out.println("Connecting to Mura site...\n");
+// 
+//        URL url = new URL("http://www.wifihertz.kalinowski.net.pl/uploads/pictures/");
+//        url.openConnection();
+//        InputStream reader = url.openStream();
+//        saveImage("http://www.wifihertz.kalinowski.net.pl/uploads/pictures/", "image14.jpg");
+    }
+
+    public static void copyToMyHard(ArrayList<Integer> listka) throws MalformedURLException, IOException
+    {
+        for (Integer imgFile : listka)
+        {
+            URL url = new URL("http://www.wifihertz.kalinowski.net.pl/uploads/pictures/" + imgFile + ".jpg");
+            url.openConnection();
+            InputStream reader = url.openStream();
+            saveImage("http://www.wifihertz.kalinowski.net.pl/uploads/pictures/" + imgFile + ".jpg", imgFile + ".jpg");
+        }
+        //saveImage("http://www.wifihertz.kalinowski.net.pl/uploads/pictures/", "image14.jpg");
+    }
+
+    public static void saveImage(String imageUrl, String destinationFile) throws IOException
+    {
+        URL url = new URL(imageUrl);
+        InputStream is = url.openStream();
+        OutputStream os = new FileOutputStream(destinationFile);
+
+        byte[] b = new byte[2048];
+        int length;
+
+        while ((length = is.read(b)) != -1)
+        {
+            os.write(b, 0, length);
+        }
+
+        is.close();
+        os.close();
+    }
+
     public static ArrayList<WifiData> getDataFromLocalDatabase() throws ClassNotFoundException, SQLException
     {
         ArrayList<WifiData> wifiData = new ArrayList<WifiData>();
-        
+
         Class.forName(SqLite);
         String query = "SELECT * FROM wifidata;";
         Connection connection = DriverManager.getConnection(localUrlDatabase);
@@ -184,39 +267,39 @@ public class SQLConnection
         ResultSet resultSet = statement.executeQuery(query);
         while (resultSet.next())
         {
-             wifiData.add(new WifiData(  Integer.parseInt(resultSet.getString("imageId")),
-                                         Integer.parseInt(resultSet.getString("dataId")),
-                                         resultSet.getString("wifiName"),
-                                         Long.parseLong(resultSet.getString("dataTime")),
-                                         resultSet.getString("wifiSsid"),
-                                         Integer.parseInt(resultSet.getString("wifiRange")),
-                                         Integer.parseInt(resultSet.getString("positionX")),
-                                         Integer.parseInt(resultSet.getString("positionY"))
-                                        ));
+            wifiData.add(new WifiData(Integer.parseInt(resultSet.getString("imageId")),
+                    Integer.parseInt(resultSet.getString("dataId")),
+                    resultSet.getString("wifiName"),
+                    Long.parseLong(resultSet.getString("dataTime")),
+                    resultSet.getString("wifiSsid"),
+                    Integer.parseInt(resultSet.getString("wifiRange")),
+                    Integer.parseInt(resultSet.getString("positionX")),
+                    Integer.parseInt(resultSet.getString("positionY"))));
         }
         connection.close();
         return wifiData;
     }
+
     public static void inicializeWifiData() throws ClassNotFoundException, SQLException
     {
         Class.forName(mySql);
         Boolean ifICan = false;
-        
+
         String query = "SELECT * FROM wifidata;";
         Connection connection = DriverManager.getConnection(urlDatabase);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
-       
+
         while (resultSet.next())
         {
             insertToLocalDataWifi(Integer.parseInt(resultSet.getString("imageId")),
-                                         Integer.parseInt(resultSet.getString("dataId")),
-                                         resultSet.getString("wifiName"),
-                                         Long.parseLong(resultSet.getString("dataTime")),
-                                         resultSet.getString("wifiSsid"),
-                                         Integer.parseInt(resultSet.getString("wifiRange")),
-                                         Integer.parseInt(resultSet.getString("positionX")),
-                                         Integer.parseInt(resultSet.getString("positionY")));
+                    Integer.parseInt(resultSet.getString("dataId")),
+                    resultSet.getString("wifiName"),
+                    Long.parseLong(resultSet.getString("dataTime")),
+                    resultSet.getString("wifiSsid"),
+                    Integer.parseInt(resultSet.getString("wifiRange")),
+                    Integer.parseInt(resultSet.getString("positionX")),
+                    Integer.parseInt(resultSet.getString("positionY")));
 //            getImageId   = Integer.parseInt(resultSet.getString("imageId"));
 //            getDataId    = Integer.parseInt(resultSet.getString("dataId"));
 //            getDataTime  = Long.parseLong(resultSet.getString("dataTime"));
@@ -225,7 +308,7 @@ public class SQLConnection
 //            getWifiRange = Integer.parseInt(resultSet.getString("wifiRange"));
 //            getPositionX = Integer.parseInt(resultSet.getString("positionX"));
 //            getPositionY = Integer.parseInt(resultSet.getString("positionY"));
-           // System.out.println("Na serwerze : " + getImageId + " Ssid " + getWifiSsid + " dataTime : " + getDataTime);
+            // System.out.println("Na serwerze : " + getImageId + " Ssid " + getWifiSsid + " dataTime : " + getDataTime);
         }
         //insertToLocalDataWifi(wifiData);
         connection.close();
@@ -282,8 +365,9 @@ public class SQLConnection
         crs.acceptChanges();
         connection.close();
     }
-    private static String SqLite             = "org.sqlite.JDBC";
-    private static String mySql              = "com.mysql.jdbc.Driver";
-    private static String localUrlDatabase   = "jdbc:sqlite:database\\wifihertzdatabase.sqlite";
-    private static String urlDatabase        = "jdbc:mysql://mysql3.hekko.net.pl/kalny_wifi?user=kalny_wifi&password=xI2oUCmk";
+    private static String SqLite = "org.sqlite.JDBC";
+    private static String mySql = "com.mysql.jdbc.Driver";
+    private static String localUrlDatabase = "jdbc:sqlite:database\\wifihertzdatabase.sqlite";
+    private static ArrayList<Integer> imgList;
+    private static String urlDatabase = "jdbc:mysql://mysql3.hekko.net.pl/kalny_wifi?user=kalny_wifi&password=xI2oUCmk";
 }

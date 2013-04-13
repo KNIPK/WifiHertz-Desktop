@@ -23,7 +23,8 @@ import javax.swing.JOptionPane;
  *
  * @author Łukasz
  */
-public class MainJFrame extends javax.swing.JFrame {
+public class MainJFrame extends javax.swing.JFrame
+{
 
     public static Boolean isLogged = false;
     public static Boolean isInternetAccess = false;
@@ -32,7 +33,8 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    public MainJFrame() throws MalformedURLException, IOException {
+    public MainJFrame() throws MalformedURLException, IOException
+    {
         isInternetAccess = SQLConnection.isInternetReachable();
         initComponents();
         jPanel1.setVisible(false);
@@ -45,12 +47,14 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         Tab2d = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         loginJPanel1 = new desktop.wifihertz.loginJPanel();
         jPanel2 = new javax.swing.JPanel();
+        manageJPanel1 = new desktop.wifihertz.ManageJPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         ButtonRefreshData = new javax.swing.JButton();
@@ -68,17 +72,19 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+            .addComponent(loginJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginJPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+            .addComponent(loginJPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
 
         Tab2d.addTab("Hellow", jPanel1);
 
-        jPanel2.addHierarchyListener(new java.awt.event.HierarchyListener() {
-            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+        jPanel2.addHierarchyListener(new java.awt.event.HierarchyListener()
+        {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt)
+            {
                 jPanel2HierarchyChanged(evt);
             }
         });
@@ -87,11 +93,15 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(manageJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(manageJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         Tab2d.addTab("Manage", jPanel2);
@@ -100,18 +110,20 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
+            .addGap(0, 716, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addGap(0, 557, Short.MAX_VALUE)
         );
 
         Tab2d.addTab("Do work", jPanel3);
 
         ButtonRefreshData.setText("Refresh data");
-        ButtonRefreshData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ButtonRefreshData.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ButtonRefreshDataActionPerformed(evt);
             }
         });
@@ -120,7 +132,7 @@ public class MainJFrame extends javax.swing.JFrame {
         view2dPanel.setLayout(view2dPanelLayout);
         view2dPanelLayout.setHorizontalGroup(
             view2dPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 605, Short.MAX_VALUE)
         );
         view2dPanelLayout.setVerticalGroup(
             view2dPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,22 +157,26 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(view2dPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(ButtonRefreshData)
-                        .addGap(0, 290, Short.MAX_VALUE)))
+                        .addGap(0, 512, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         Tab2d.addTab("2D", jPanel4);
 
         jButtonLogin.setText("Login");
-        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButtonLoginActionPerformed(evt);
             }
         });
 
         jButton1.setText("Logout");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -211,11 +227,25 @@ public class MainJFrame extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_jButtonLoginActionPerformed
         // TODO add your handling code here:
         isLogged = true;
-        try {
-            loginJPanel1.refresh();
-        } catch (ClassNotFoundException ex) {
+        System.out.println("User : " + SQLConnection.UserId);
+        try
+        {
+            loginJPanel1.refresh(); 
+        }
+        catch (ClassNotFoundException ex)
+        {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (MalformedURLException ex)
+        {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         jPanel1.setVisible(true);
@@ -223,28 +253,49 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        if (isLogged == true) {
+        if (isLogged == true)
+        {
 
             //jPanel1.setEnabled(false);
-            try {
+            try
+            {
                 // TODO add your handling code here:
                 JOptionPane.showMessageDialog(this, "You are logged out ", "Logout!", JOptionPane.INFORMATION_MESSAGE);
                 userLoginLabel.setText(null);
                 isLogged = false;
                 loginJPanel1.manageTab(true);
-                try {
+                try
+                {
                     loginJPanel1.refresh();
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
+                }
+                catch (ClassNotFoundException ex)
+                {
                     Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+                catch (SQLException ex)
+                {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch (MalformedURLException ex)
+                {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch (IOException ex)
+                {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            catch (ClassNotFoundException ex)
+            {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
+            catch (SQLException ex)
+            {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else
+        {
             JOptionPane.showMessageDialog(this, "You must first login", "Error!", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -254,24 +305,48 @@ public class MainJFrame extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_jPanel2HierarchyChanged
         // TODO add your handling code here:
         System.out.println("Winner" + Tab2d.getSelectedIndex());
-        isManaged = true;
-        /*ArrayList<WifiData> xx = null;
-         try
-         {
-         xx = new ArrayList<WifiData>(SQLConnection.getDataFromLocalDatabase());
-         }
-         catch (ClassNotFoundException ex)
-         {
-         Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         catch (SQLException ex)
-         {
-         Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         for(int i = 0; i < xx.size()-1; i++)
-         {
-         System.out.println(xx.toArray()[i]);
-         }*/
+        if(Tab2d.getSelectedIndex() == 1 && isLogged)
+        {
+            isManaged = true; Integer userOnlyOne=-1;
+            try
+            {
+                userOnlyOne = SQLConnection.getAccessToYoursImage(loginJPanel.getUserName);
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (ClassNotFoundException ex)
+            {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("User: " + userOnlyOne);
+            try
+            {
+                SQLConnection.downloadImages(userOnlyOne);
+            }
+            catch (ClassNotFoundException ex)
+            {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (MalformedURLException ex)
+            {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (IOException ex)
+            {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            manageJPanel1.refresh();
+            
+        }
+        
+        
+       
     }//GEN-LAST:event_jPanel2HierarchyChanged
 
     private void ButtonRefreshDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRefreshDataActionPerformed
@@ -284,31 +359,44 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     static MainJFrame frame;
 
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        try
+        {
             // Set System L&F
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException e) {
+        }
+        catch (UnsupportedLookAndFeelException e)
+        {
             // handle exception
-        } catch (ClassNotFoundException e) {
+        }
+        catch (ClassNotFoundException e)
+        {
             // handle exception
-        } catch (InstantiationException e) {
+        }
+        catch (InstantiationException e)
+        {
             // handle exception
-        } catch (IllegalAccessException e) {
+        }
+        catch (IllegalAccessException e)
+        {
             // handle exception
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                try
+                {
                     frame = new MainJFrame();//.setVisible(true);
                     frame.setVisible(true);
 
@@ -321,9 +409,13 @@ public class MainJFrame extends javax.swing.JFrame {
 //                    loginJPanel.jTable1.setPreferredSize(dm);
 
 
-                } catch (MalformedURLException ex) {
+                }
+                catch (MalformedURLException ex)
+                {
                     Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
+                }
+                catch (IOException ex)
+                {
                     Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -339,6 +431,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private desktop.wifihertz.loginJPanel loginJPanel1;
+    private desktop.wifihertz.ManageJPanel manageJPanel1;
     public static javax.swing.JLabel userLoginLabel;
     private desktop.wifihertz.View2dPanel view2dPanel;
     // End of variables declaration//GEN-END:variables
