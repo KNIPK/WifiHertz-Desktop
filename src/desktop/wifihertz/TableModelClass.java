@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package WiFiHertzPackage;
+package desktop.wifihertz;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,10 +18,11 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TableModelClass extends AbstractTableModel 
 {
-    CachedRowSet crs; SQLConnectionClass database;
-    public TableModelClass(CachedRowSet crsA, SQLConnectionClass databaseA)
+    CachedRowSet crs; 
+    
+    public TableModelClass(CachedRowSet crsA)
     {
-        crs = crsA; database = databaseA;
+        crs = crsA;
     }
     
     @Override
@@ -104,10 +105,11 @@ public class TableModelClass extends AbstractTableModel
         return crsClass;
     }
     @Override
-    public void setValueAt(Object obj, int rowIndex, int columnIndex) {
+    public void setValueAt(Object obj, int rowIndex, int columnIndex) 
+    {
         try        
         {
-            database.setValue(obj, getColumnClass(columnIndex), rowIndex, columnIndex);
+            SQLConnection.setValue(obj, getColumnClass(columnIndex), rowIndex, columnIndex);
         }
         catch (FileNotFoundException ex)
         {
