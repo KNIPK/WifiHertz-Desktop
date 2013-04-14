@@ -32,7 +32,7 @@ public class SQLConnection
     private static void insertToLocalDataWifi(int imageId, int dataId, String wifiName, long dataTime, String wifiSsid, int wifiRange, int positionX, int positionY) throws SQLException, ClassNotFoundException
     {
         Class.forName(SqLite);
-        System.out.println("Ładuje do bazy");
+        //System.out.println("Ładuje do bazy");
         String query = "insert into wifidata values(" + imageId + ", " + dataId + "," + dataTime
                 + ",'" + wifiName + "', '" + wifiSsid + "' , " + wifiRange
                 + "," + positionX + "," + positionY + ");";
@@ -146,7 +146,7 @@ public class SQLConnection
         String getPasswd;
         int getUserId = -1;
         Connection connection = DriverManager.getConnection(urlDatabase);
-        System.out.println("blad " + connection);
+        //System.out.println("blad " + connection);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
         while (resultSet.next())
@@ -155,8 +155,8 @@ public class SQLConnection
             getName = resultSet.getString("userLogin");
             getUserId = Integer.parseInt(resultSet.getString("userId"));
            
-            System.out.println("user_id:"
-                    + resultSet.getString("userId") + " user login : " + resultSet.getString("userLogin") + " user passwd : " + resultSet.getString("userPassword"));
+           /* System.out.println("user_id:"
+                    + resultSet.getString("userId") + " user login : " + resultSet.getString("userLogin") + " user passwd : " + resultSet.getString("userPassword"));*/
         }
         //sprawdzenie czy dany uzytkownik jest juz w bazie
         Boolean ifUserExist = findUserInDataBase(getUserId);
@@ -182,8 +182,8 @@ public class SQLConnection
         {
             getName = resultSet.getString("userLogin");
             getUserId = Integer.parseInt(resultSet.getString("userId"));
-            System.out.println("user_id:"
-                    + resultSet.getString("userId") + " user login : " + resultSet.getString("userLogin") + " user passwd : " + resultSet.getString("userPassword"));
+           /* System.out.println("user_id:"
+                    + resultSet.getString("userId") + " user login : " + resultSet.getString("userLogin") + " user passwd : " + resultSet.getString("userPassword"));*/
         }
         //sprawdzenie czy dany uzytkownik jest juz w bazie
         Boolean ifUserExist = findUserInDataBase(getUserId);
@@ -209,9 +209,9 @@ public class SQLConnection
         ResultSet resultSet = statement.executeQuery(query);
         while (resultSet.next())
         {
-            System.out.println(Integer.parseInt(resultSet.getString("imageId")) + " "
+           /* System.out.println(Integer.parseInt(resultSet.getString("imageId")) + " "
                     + Integer.parseInt(resultSet.getString("userId")) + " "
-                    + resultSet.getString("imageTitle"));
+                    + resultSet.getString("imageTitle"));*/
             imgList.add(Integer.parseInt(resultSet.getString("imageId")));
         }
         connection.close();
@@ -242,7 +242,9 @@ public class SQLConnection
     {
         URL url = new URL(imageUrl);
         InputStream is = url.openStream();
-        OutputStream os = new FileOutputStream(destinationFile);
+        String name = "img/"+destinationFile;
+        //System.out.println("plik " + name);
+        OutputStream os = new FileOutputStream(name);
 
         byte[] b = new byte[2048];
         int length;
@@ -365,6 +367,7 @@ public class SQLConnection
         crs.acceptChanges();
         connection.close();
     }
+   
     private static String SqLite = "org.sqlite.JDBC";
     private static String mySql = "com.mysql.jdbc.Driver";
     private static String localUrlDatabase = "jdbc:sqlite:database/wifihertzdatabase.sqlite";

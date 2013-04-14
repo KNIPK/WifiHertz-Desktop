@@ -217,7 +217,7 @@ public class MainJFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonLoginActionPerformed
         // TODO add your handling code here:
         isLogged = true;
-        System.out.println("User : " + SQLConnection.UserId);
+        //System.out.println("User : " + SQLConnection.UserId);
         try
         {
             loginJPanel1.refresh(); 
@@ -298,7 +298,7 @@ public class MainJFrame extends javax.swing.JFrame
 
     private void jPanel2HierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_jPanel2HierarchyChanged
         // TODO add your handling code here:
-        System.out.println("Winner" + Tab2chart.getSelectedIndex());
+        //System.out.println("Winner" + Tab2chart.getSelectedIndex());
         if(Tab2chart.getSelectedIndex() == 1 && isLogged)
         {
             isManaged = true; Integer userOnlyOne=-1;
@@ -314,7 +314,7 @@ public class MainJFrame extends javax.swing.JFrame
             {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("User: " + userOnlyOne);
+            //System.out.println("User: " + userOnlyOne);
             try
             {
                 SQLConnection.downloadImages(userOnlyOne);

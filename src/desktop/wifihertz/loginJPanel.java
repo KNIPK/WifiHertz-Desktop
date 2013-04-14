@@ -36,15 +36,7 @@ public class loginJPanel extends javax.swing.JPanel
 
     public loginJPanel()
     {
-        //loginJPanel pane = new loginJPanel();
-        //jTable1.setGridColor(Color.yellow);
        
-                
-       
-
-        //Dimension dimension = new Dimension(ySize, ySize);//.getScreenSize();
-        //setPreferredSize(dimension);
-        //jTable1.setLayout(new BoxLayo);
     }
 
     public void refresh() throws ClassNotFoundException, SQLException, MalformedURLException, IOException
@@ -154,7 +146,7 @@ public class loginJPanel extends javax.swing.JPanel
         int row = jTable1.rowAtPoint(evt.getPoint());
         int col = jTable1.columnAtPoint(evt.getPoint());
         getUserName = (String) jTable1.getModel().getValueAt(row, col);
-        System.out.println("Wybrales usera " + getUserName);
+       // System.out.println("Wybrales usera " + getUserName);
         String toDisp = getUserName + " is logged!";
         MainJFrame.userLoginLabel.setText(toDisp);
         JOptionPane.showMessageDialog(this, "You are logged as " + getUserName, "Login!", JOptionPane.INFORMATION_MESSAGE);

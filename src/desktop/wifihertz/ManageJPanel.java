@@ -27,68 +27,20 @@ import javax.swing.JOptionPane;
  */
 public class ManageJPanel extends javax.swing.JPanel
 {
-
-    TableModelClass model;
-    TableModelClass modelUsers;
-    CachedRowSet crs;
-    private static String SqLite = "org.sqlite.JDBC";
     public static String sourceImagePath ="";
+    private Image image;
     /**
      * Creates new form ManageJPanel
      */
     public ManageJPanel()
     {
 
-       
-//        sourceImagePath = (String) jComboBox1.getSelectedItem();
-//        System.out.println("plik" + sourceImagePath);
     }
     public void refresh()
     {
         initComponents();
         fillComboBox();
     }
-    private Image image;
-    /*@Override
-     public void paint(Graphics x)
-     {
-     Graphics2D g = (Graphics2D) x;
-
-     super.paint(g);
-     try
-     {
-     image = ImageIO.read(new File("C:\\Users\\vanlu_000\\Documents\\NetBeansProjects\\JavaApplication6\\"));
-     }
-     catch (IOException ex)
-     {
-     Logger.getLogger(ManageJPanel.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     //plansza = imageTemp1.getImage();
-     g.drawImage(image, 0, 0 , this);
-       
-     }*/
-
-    public void showImage()
-    {
-    }
-
-    public void getManageTab() throws ClassNotFoundException, SQLException
-    {
-        // ArrayList<WifiData> list = new ArrayList<WifiData>(SQLConnection.inicializeWifiData());
-        if (MainJFrame.isLogged == true && MainJFrame.isManaged == true)
-        {
-//            if (MainJFrame.isInternetAccess == true)
-//            {
-//                SQLConnection.getRemoteDataBaseAllUsersToBeCopy();
-//            }
-//            else
-//            {
-//                JOptionPane.showMessageDialog(this, "Warning! Can not connect to internet ", "Warning", JOptionPane.WARNING_MESSAGE);
-//            }
-        }
-
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -159,7 +111,7 @@ public class ManageJPanel extends javax.swing.JPanel
 
     private static ArrayList<String> listFiles()
     {
-        String path = ".";
+        String path = "img/";
         ArrayList<String> lista = new ArrayList<String>();
         String files;
         File folder = new File(path);
@@ -173,7 +125,7 @@ public class ManageJPanel extends javax.swing.JPanel
                 files = listOfFiles[i].getName();
                 if (files.endsWith(".jpg") || files.endsWith(".JPG"))
                 {
-                    System.out.println(files);
+                    //System.out.println(files);
                     lista.add(files);
                 }
             }
@@ -192,15 +144,15 @@ public class ManageJPanel extends javax.swing.JPanel
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
     {//GEN-HEADEREND:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        sourceImagePath = (String) jComboBox1.getSelectedItem();
-        System.out.println("plik w combo : " + sourceImagePath);
+        sourceImagePath = "img/"+(String) jComboBox1.getSelectedItem();
+       // System.out.println("plik w combo : " + sourceImagePath);
         repaint();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButtonConfirmActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConfirmActionPerformed
     {//GEN-HEADEREND:event_jButtonConfirmActionPerformed
         // TODO add your handling code here:
-        System.out.println("Wybrales plan : " + jComboBox1.getSelectedItem());
+      //  System.out.println("Wybrales plan : " + jComboBox1.getSelectedItem());
         JOptionPane.showMessageDialog(this, "You choose  " + jComboBox1.getSelectedItem() + " map", "INFORMATION MESSAGE!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonConfirmActionPerformed
 

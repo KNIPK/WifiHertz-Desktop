@@ -21,7 +21,9 @@ public class GetFilesFromNet
     {
         URL url = new URL(imageUrl);
         InputStream is = url.openStream();
-        OutputStream os = new FileOutputStream(destinationFile);
+        String name = "C:\\Users\\vanlu_000\\Documents\\NetBeansProjects\\Kwiecien\\WifiHertz-Desktop\\img\\"+destinationFile;
+        System.out.println("plik " + name);
+        OutputStream os = new FileOutputStream(name);
 
         byte[] b = new byte[2048];
         int length;
