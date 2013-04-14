@@ -1,18 +1,13 @@
 package desktop.wifihertz;
 
-import java.awt.Dimension;
-import java.awt.GraphicsDevice;
 import javax.swing.*;
-import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sql.rowset.CachedRowSet;
 import javax.swing.JOptionPane;
+import org.jfree.chart.ChartPanel;
 
 
 /*
@@ -29,6 +24,8 @@ public class MainJFrame extends javax.swing.JFrame
     public static Boolean isLogged = false;
     public static Boolean isInternetAccess = false;
     public static Boolean isManaged = false;
+    
+    private ChartPanel chartPanel;
 
     /**
      * Creates new form MainJFrame
@@ -38,6 +35,8 @@ public class MainJFrame extends javax.swing.JFrame
         isInternetAccess = SQLConnection.isInternetReachable();
         initComponents();
         jPanel1.setVisible(false);
+        chartPanel = ChartGenerator.example();
+        Tab2chart.add(chartPanel, "Wykres");
     }
 
     /**
@@ -47,10 +46,9 @@ public class MainJFrame extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
-        Tab2d = new javax.swing.JTabbedPane();
+        Tab2chart = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         loginJPanel1 = new desktop.wifihertz.loginJPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -66,25 +64,23 @@ public class MainJFrame extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
 
-        Tab2d.setName("2dTab"); // NOI18N
+        Tab2chart.setName("2dTab"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+            .addComponent(loginJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginJPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+            .addComponent(loginJPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
         );
 
-        Tab2d.addTab("Hellow", jPanel1);
+        Tab2chart.addTab("Hellow", jPanel1);
 
-        jPanel2.addHierarchyListener(new java.awt.event.HierarchyListener()
-        {
-            public void hierarchyChanged(java.awt.event.HierarchyEvent evt)
-            {
+        jPanel2.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
                 jPanel2HierarchyChanged(evt);
             }
         });
@@ -95,35 +91,33 @@ public class MainJFrame extends javax.swing.JFrame
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(manageJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 728, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(manageJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 551, Short.MAX_VALUE))
         );
 
-        Tab2d.addTab("Manage", jPanel2);
+        Tab2chart.addTab("Manage", jPanel2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 716, Short.MAX_VALUE)
+            .addGap(0, 738, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
+            .addGap(0, 561, Short.MAX_VALUE)
         );
 
-        Tab2d.addTab("Do work", jPanel3);
+        Tab2chart.addTab("Do work", jPanel3);
 
         ButtonRefreshData.setText("Refresh data");
-        ButtonRefreshData.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        ButtonRefreshData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonRefreshDataActionPerformed(evt);
             }
         });
@@ -161,22 +155,18 @@ public class MainJFrame extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        Tab2d.addTab("2D", jPanel4);
+        Tab2chart.addTab("2D", jPanel4);
 
         jButtonLogin.setText("Login");
-        jButtonLogin.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoginActionPerformed(evt);
             }
         });
 
         jButton1.setText("Logout");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -198,7 +188,7 @@ public class MainJFrame extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonLogin)
                         .addGap(25, 25, 25))))
-            .addComponent(Tab2d)
+            .addComponent(Tab2chart)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,12 +201,12 @@ public class MainJFrame extends javax.swing.JFrame
                             .addComponent(jButton1)
                             .addComponent(jButtonLogin))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Tab2d)
+                .addComponent(Tab2chart)
                 .addContainerGap())
         );
 
-        Tab2d.getAccessibleContext().setAccessibleName("Hello");
-        Tab2d.getAccessibleContext().setAccessibleDescription("");
+        Tab2chart.getAccessibleContext().setAccessibleName("Hello");
+        Tab2chart.getAccessibleContext().setAccessibleDescription("");
 
         getAccessibleContext().setAccessibleDescription("");
 
@@ -301,11 +291,15 @@ public class MainJFrame extends javax.swing.JFrame
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jPanel2HierarchyChanged(java.awt.event.HierarchyEvent evt)//GEN-FIRST:event_jPanel2HierarchyChanged
-    {//GEN-HEADEREND:event_jPanel2HierarchyChanged
+    private void ButtonRefreshDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRefreshDataActionPerformed
+        view2dPanel.getTestingData();
+        view2dPanel.repaint();
+    }//GEN-LAST:event_ButtonRefreshDataActionPerformed
+
+    private void jPanel2HierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_jPanel2HierarchyChanged
         // TODO add your handling code here:
-        System.out.println("Winner" + Tab2d.getSelectedIndex());
-        if(Tab2d.getSelectedIndex() == 1 && isLogged)
+        System.out.println("Winner" + Tab2chart.getSelectedIndex());
+        if(Tab2chart.getSelectedIndex() == 1 && isLogged)
         {
             isManaged = true; Integer userOnlyOne=-1;
             try
@@ -342,18 +336,10 @@ public class MainJFrame extends javax.swing.JFrame
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
             manageJPanel1.refresh();
-            
+
         }
-        
-        
-       
+
     }//GEN-LAST:event_jPanel2HierarchyChanged
-
-    private void ButtonRefreshDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRefreshDataActionPerformed
-        view2dPanel.getTestingData();
-        view2dPanel.repaint();
-
-    }//GEN-LAST:event_ButtonRefreshDataActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -423,11 +409,11 @@ public class MainJFrame extends javax.swing.JFrame
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonRefreshData;
-    private javax.swing.JTabbedPane Tab2d;
+    private javax.swing.JTabbedPane Tab2chart;
     public static javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonLogin;
-    public static javax.swing.JPanel jPanel1;
-    public static javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private desktop.wifihertz.loginJPanel loginJPanel1;
